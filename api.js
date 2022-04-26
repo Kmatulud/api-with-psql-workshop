@@ -1,8 +1,10 @@
+const tests = require("./test/test.api");
+
 module.exports = function (app, db) {
 
 	app.get('/api/test', function (req, res) {
 		res.json({
-			name: ''
+			name: 'joe'
 		});
 	});
 
@@ -50,7 +52,7 @@ module.exports = function (app, db) {
 		try {
 			const { id } = req.params;
 			// get the garment from the database
-			const garment = null;
+			const garment = await db.one `select * from garment_app where id=$1, id`;
 
 			res.json({
 				status: 'success',
@@ -74,7 +76,9 @@ module.exports = function (app, db) {
 			const { description, price, img, season, gender } = req.body;
 
 			// insert a new garment in the database
-
+			await db.none(
+				`insert into garment (description, price, img, season, gender), values($1, $2, $3, $4, $5)`
+			);
 			res.json({
 				status: 'success',
 			});
@@ -102,7 +106,7 @@ module.exports = function (app, db) {
 		try {
 			const { gender } = req.query;
 			// delete the garments with the specified gender
-
+			await db.none(`delete from garment where gender=$1`, gender)
 			res.json({
 				status: 'success'
 			})
