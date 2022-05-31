@@ -146,6 +146,7 @@ app.get("/", function (req, res) {
 // 			img: "placeholder.png",
 // 		});
 
+
 // 		await supertest(app).post("/api/garment").send({
 // 			gender: "Female",
 // 			season: "Winter",
