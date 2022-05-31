@@ -221,7 +221,7 @@ app.get("/", function (req, res) {
 // 	});
 // });
 
-let PORT = 8000 || process.env.PORT;
+let PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
 	console.log("Listening on port", `${PORT}`);
 });
