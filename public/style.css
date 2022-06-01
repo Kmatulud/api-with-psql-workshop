@@ -35,7 +35,10 @@ img {
 .hidden {
 	display: none;
 }
-
+.feedbackMsg{
+	color: orange;
+	font-size: 1.1rem;
+}
 .field label {
 	display: block;
 	width: 5em;

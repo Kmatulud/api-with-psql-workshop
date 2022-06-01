@@ -14,6 +14,7 @@ document.addEventListener("alpine:init", () => {
 		error: "Cannot be empty!, please add a garment",
 		success: "Garment successfully added",
 		delete: "Garment delete success",
+		failed: "failed to delete",
 		item: {
 			description: "",
 			img: "",
@@ -32,11 +33,11 @@ document.addEventListener("alpine:init", () => {
 				fetch(
 					`/api/garments?gender=${this.filterGender}&season=${this.filterSeason}`
 				)
-					.then(filtered => filtered.json())
-					.then(result => {
+					.then((filtered) => filtered.json())
+					.then((result) => {
 						this.garments = result.data;
 					})
-					.catch(error => new Error(error.message));
+					.catch((error) => new Error(error.message));
 			} catch {
 				this.error(error.message);
 			}
@@ -46,7 +47,7 @@ document.addEventListener("alpine:init", () => {
 				fetch(`/api/garments/${this.maxPrice}`)
 					.then((price) => price.json())
 					.then((data) => {
-						(this.garments = data.data);
+						this.garments = data.data;
 					})
 					.catch((error) => new Error(error.message));
 			} catch {
@@ -65,15 +66,27 @@ document.addEventListener("alpine:init", () => {
 				) {
 					this.feedback = this.error;
 				} else {
-					axios.post("/api/garments", items)
-					.then((data) => {
-						(this.garments = data.data);
-					})
+					axios.post("/api/garments", items).then((data) => {
+						this.garments = data.data;
+					});
 					this.feedback = this.success;
 				}
 			} catch (error) {
 				console.log(error);
 			}
+		},
+		deleteGarments(item) {
+			try {
+				axios.delete(`/api/garment/${item.id}`).then(() =>
+					fetch("/api/garments")
+						.then((r) => r.json())
+						.then((data) => (this.garments = data.data)));
+					this.feedback = this.delete;
+			} 
+			catch(error) {
+				console.log(error);
+			}
+			this.feedback = this.failed;
 		},
 	}));
 });

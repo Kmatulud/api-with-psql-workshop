@@ -55,7 +55,7 @@
             <div class="add button mt1">
                 <a href="" @click="addBtn()">Add garment</a>
             </div>
-            <div x-text="feedback"></div>
+            <div class="feedbackMsg" x-text="feedback"></div>
             <div class="add garment" class="{hidden: !isOpen}">
                 <h2>Add garment</h2>
                 <img src="/images/{{img}}" alt="" />
@@ -103,6 +103,7 @@
                         <h4 x-text="garment.price"></h4>
                         <h4 x-text="garment.gender"></h4>
                         <h4 x-text="garment.season"></h4>
+                        <button @click="deleteGarments(garment)">delete</button>
                     </div>
                 </template>
             </div>
