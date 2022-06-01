@@ -44,7 +44,7 @@
             </div>
             <div>
                 Filter by price range:
-                <input type="range" name="priceRange" max="1000" step="50" class="priceRange" value="0" />
+                <input type="range" @click="filterByPrice()" name="priceRange" max="1000" step="50" class="priceRange" x-model="maxPrice" value="0" />
                 R<span class="showPriceRange">0</span>.00
             </div>
         </div>
@@ -53,10 +53,10 @@
 
         <div class="addGarment">
             <div class="add button mt1">
-                <a href="">Add garmet</a>
+                <a href="" @click="addBtn()">Add garment</a>
             </div>
-
-            <div class="add garment hidden">
+            <div x-text="feedback"></div>
+            <div class="add garment" class="{hidden: !isOpen}">
                 <h2>Add garment</h2>
                 <img src="/images/{{img}}" alt="" />
 
@@ -87,8 +87,8 @@
                     </div>
                 </div>
                 <div class="mt1">
-                    <input type="button" @click="addBtn" name="action" value="Add" class="addGarmentBtn" />
-                    <input type="button" @click="hideAddBtn" name="action" value="Hide" class="hideAddGarmetBtn" />
+                    <input type="button" @click="addGarment()" name="action" value="Add" class="addGarmentBtn" />
+                    <input type="button" @click="hideAddBtn()" name="action" value="Hide" class="hideAddGarmetBtn" />
                 </div>
                 <!-- </form> -->
             </div>
@@ -101,8 +101,8 @@
                         <h4 x-text="garment.description"></h4>
                         <!-- <br> -->
                         <h4 x-text="garment.price"></h4>
-                        <td x-text="garment.gender"></td>
-                        <td x-text="garment.season"></td>
+                        <h4 x-text="garment.gender"></h4>
+                        <h4 x-text="garment.season"></h4>
                     </div>
                 </template>
             </div>
