@@ -67,7 +67,9 @@ document.addEventListener("alpine:init", () => {
 					this.feedback = this.error;
 				} else {
 					axios.post("/api/garments", items).then((data) => {
-						this.garments = data.data;
+						fetch("/api/garments")
+							.then((r) => r.json())
+							.then((data) => (this.garments = data.data));
 					});
 					this.feedback = this.success;
 				}
